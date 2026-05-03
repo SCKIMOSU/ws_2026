@@ -1,0 +1,21 @@
+{%  if question_list %}
+    <ol>
+        {%  for question in question_list %}
+            <!-- 모든 템플릿을 직접 찾아서 수정해야 함 -->
+
+            <!-- 변경 전 -->
+            <!-- <li> <a href = "/question/{{ question.id}}/"> {{ question.subject }}</a> </li> -->
+
+
+            <!-- 변경 후  -->
+            <li> <a href="{% url 'question:detail' question.id %}">{{ question.subject }}</a></li>
+
+
+
+
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>질문이 없습니다. </p>
+
+{% endif %}
