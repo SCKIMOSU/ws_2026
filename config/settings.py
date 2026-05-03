@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')&m=et4b#ca%*7od5!ae+gkgp0(dyj9#n3(4@wqhb6^fl=3ola'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sckimosu.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -124,6 +124,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
