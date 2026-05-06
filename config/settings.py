@@ -23,10 +23,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')&m=et4b#ca%*7od5!ae+gkgp0(dyj9#n3(4@wqhb6^fl=3ola'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+#DEBUG = False
+# 로컬에서는 개발할 때 항상 True여야 함
+# PythonAnywhere 배포 가이드에서 DEBUG = False
 
-ALLOWED_HOSTS = ['sckimosu.pythonanywhere.com', 'localhost', '127.0.0.1']
+import os
 
+# 기본값은 True (로컬 개발), 환경변수로 False 설정 가능
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+#로컬: 환경변수 설정 안 하면 자동으로 True
+#PythonAnywhere: Web 탭의 환경변수 설정에 DJANGO_DEBUG=False 추가하면 운영 모드
+
+#ALLOWED_HOSTS = ['sckimosu.pythonanywhere.com', 'localhost', '127.0.0.1']
+#DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+
+if DEBUG:
+    # 로컬 개발
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+else:
+    # 운영 (PythonAnywhere)
+    ALLOWED_HOSTS = ['sckimosu.pythonanywhere.com']
 
 # Application definition
 
@@ -122,6 +138,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
+    #BASE_DIR / 'static'
     os.path.join(BASE_DIR, 'static'),
 ]
 
