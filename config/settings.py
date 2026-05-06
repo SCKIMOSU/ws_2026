@@ -37,12 +37,11 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 #ALLOWED_HOSTS = ['sckimosu.pythonanywhere.com', 'localhost', '127.0.0.1']
 #DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-if DEBUG:
-    # 로컬 개발
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-else:
-    # 운영 (PythonAnywhere)
-    ALLOWED_HOSTS = ['sckimosu.pythonanywhere.com']
+ALLOWED_HOSTS = [
+    'sckimosu.pythonanywhere.com',
+    'localhost',
+    '127.0.0.1',
+]
 
 # Application definition
 
