@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question, Answer
@@ -58,8 +59,41 @@ def question_create(request):
     context = {'form': form}
     return render(request, 'pybo/question_form.html', context)
 
+@login_required(login_url='common:login')
+def question_modify(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user != question.author:
+        messages.error(request, 'You cannot modify this question')
+        return redirect('pybo:detail', question_id=question.id)
 
-    #form=QuestionForm()
+    if request.method == 'POST':
+        form = QuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.author = request.user
+            question.modify_date = timezone.now()
+            question.save()
+            return redirect('pybo:detail', question_id=question.id)
+            # PRG 위반 (수업 시연용) — redirect 대신 render PRG : Post-Redirect-Get
+            context = {'question': question}
+            return render(request, 'pybo/question_detail.html', context)
+    else:
+        form = QuestionForm(instance=question)
+    context = {'form': form}
+    return render(request, 'pybo/question_form.html', context)
+
+
+
+
+@login_required(login_url='common:login')
+def question_delete(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user != question.author:
+        messages.error(request, 'You cannot delete this question')
+        return redirect('pybo:detail', question_id=question.id)
+    question.delete()
+    return redirect('pybo:index')
+
 
     #return render(request, 'pybo/question_form.html',{'form':form})
 @login_required(login_url='common:login')
