@@ -15,7 +15,8 @@
             {% if request.user == question.author %}
             <div class="my-3">
                 <a href="{% url 'pybo:question_modify' question.id  %}"
-                   class="btn btn-sm btn-outline-secondary">수정</a>
+                   class="btn btn-outline-primary ">수정</a>
+{#                class="btn btn-outline-primary class="btn btn-sm btn-outline-secondary #}
                 <a href="#" class="delete btn btn-sm btn-outline-secondary"
                    data-uri="{% url 'pybo:question_delete' question.id  %}">삭제</a>
             </div>
